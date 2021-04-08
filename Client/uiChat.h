@@ -25,6 +25,7 @@ public slots:
     void AddMes(const QString& name, const QString& mes);
     void UpdateUsers(const QVector<QString>& users);
     void SetName(const QString& name);
+    void SetStatusSocket(const bool status);
 
 private:
     Ui::MainWindow* ui;

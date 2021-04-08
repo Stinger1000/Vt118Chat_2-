@@ -24,11 +24,29 @@ void NetworkController::GetMesFromHost()
 {
     m_data_stream.startTransaction();
 
-    QString fortune;
+    QByteArray fortune;
     m_data_stream >> fortune;
 
     if (!m_data_stream.commitTransaction())
         return;
 
     emit NewMes(fortune);
+}
+
+bool NetworkController::GetStatusConnect()
+{
+    if (m_tcp_socket->state() == 3) {
+        return true;
+    }
+    return false;
+}
+
+void NetworkController::SendMes(const QByteArray& mes)
+{
+    QByteArray out  = mes;
+    uint16_t   size = mes.size() + 2;
+    out.push_front(size & 0xFF);
+    out.push_front((size >> 8) & 0xFF);
+    m_data_stream.writeRawData(out, out.size());
+    m_data_stream.startTransaction();
 }

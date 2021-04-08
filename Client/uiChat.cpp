@@ -16,7 +16,9 @@ MainWindow::MainWindow(QWidget* parent)
     connect(m_thread, &QThread::finished, m_main_controller,
         &MainController::deleteLater);
     // connections to main
-    connect(m_main_controller, &MainController::NewMes, this, &MainWindow::AddMes, Qt::QueuedConnection);
+    //connect(m_main_controller, &MainController::NewMes, this, &MainWindow::AddMes, Qt::QueuedConnection);
+    connect(ui->btnRegistration, &QPushButton::clicked, m_main_controller, &MainController::Registration, Qt::QueuedConnection);
+    connect(m_main_controller, &MainController::StatusSocket, this, &MainWindow::SetStatusSocket, Qt::QueuedConnection);
     //
     m_thread->start();
 }
@@ -53,4 +55,13 @@ void MainWindow::UpdateUsers(const QVector<QString>& users)
 void MainWindow::SetName(const QString& name)
 {
     ui->lblName->setText(name);
+}
+
+void MainWindow::SetStatusSocket(const bool status)
+{
+    if (status) {
+        ui->lblStatus->setText("Online");
+    } else {
+        ui->lblStatus->setText("Offline");
+    }
 }

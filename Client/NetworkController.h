@@ -14,9 +14,13 @@ public:
     ~NetworkController();
     void ConnectToHost();
     void GetMesFromHost();
+    bool GetStatusConnect();
+
+public slots:
+    void SendMes(const QByteArray& mes);
 
 signals:
-    void NewMes(const QString& mes);
+    void NewMes(const QByteArray& mes);
 
 private:
     QTcpSocket* m_tcp_socket { nullptr };
