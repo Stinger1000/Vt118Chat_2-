@@ -38,8 +38,7 @@ public slots:
     void ResponseRegLog(const uint8_t reg_or_log, const bool status);
 
 private slots:
-    void
-    on_btnRegistration_clicked();
+    void on_btnRegistration_clicked();
 
     void on_btnInAc_clicked();
 

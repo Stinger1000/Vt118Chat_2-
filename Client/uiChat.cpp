@@ -125,8 +125,15 @@ void MainWindow::ResponseRegLog(const uint8_t reg_or_log, const bool status)
 
 void MainWindow::on_btnRegistration_clicked()
 {
-    QByteArray login = QStingToQByteArray(ui->lneLogin->text());
-    QByteArray pass  = QStingToQByteArray(ui->lnePass->text());
+    auto login = QStingToQByteArray(ui->lneLogin->text());
+    auto pass  = QStingToQByteArray(ui->lnePass->text());
+
+    if (login.isEmpty() || pass.isEmpty()) {
+        QMessageBox::information(this, QObject::tr("Error"),
+            "Некорректные данные, "
+            "пожалуйста введите заново");
+        return;
+    }
 
     emit Registration(login, pass);
 
@@ -138,6 +145,13 @@ void MainWindow::on_btnInAc_clicked()
     auto login = QStingToQByteArray(ui->lneLogin->text());
     auto pass  = QStingToQByteArray(ui->lnePass->text());
 
+    if (login.isEmpty() || pass.isEmpty()) {
+        QMessageBox::information(this, QObject::tr("Error"),
+            "Некорректные данные, "
+            "пожалуйста введите заново");
+        return;
+    }
+
     emit Loging(login, pass);
 
     m_my_name = ui->lneLogin->text();
@@ -147,6 +161,7 @@ void MainWindow::on_btnSendText_clicked()
 {
     auto data = QStingToQByteArray(ui->lneUserText->text());
     emit SendMesDefault(data);
+    ui->lneUserText->clear();
 }
 
 void MainWindow::on_btnSetIP_clicked()
