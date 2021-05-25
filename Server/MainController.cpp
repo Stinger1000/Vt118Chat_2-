@@ -1,4 +1,4 @@
-#include "MainController.h">
+#include "MainController.h"
 
 MainController::MainController(QObject *parent) : QObject(parent), m_server(new TcpServer(this))
 {

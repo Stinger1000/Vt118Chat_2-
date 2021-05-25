@@ -13,21 +13,21 @@ public:
     explicit NetworkController(QObject* parent = nullptr);
     ~NetworkController();
     void ConnectToHost();
-    void GetMesFromHost();
     bool GetStatusConnect();
 
 public slots:
     void SendMes(const QByteArray& mes);
+    void GetMesFromHost(int channel);
+    void SetIP(const QString& ip);
 
 signals:
     void NewMes(const QByteArray& mes);
 
 private:
     QTcpSocket* m_tcp_socket { nullptr };
-    QDataStream m_data_stream;
 
     quint16 m_port_server { 9999 };
-    QString m_ip_server { "192.168.0.139" };
+    QString m_ip_server { "192.168.0.15" };
 };
 
 #endif // NETWORKCONTROLLER_H
